@@ -1,0 +1,12 @@
+.cache
+.env
+.git
+.github
+.gitignore
+.idea
+.old
+.pre-commit-config.yaml
+.venv
+Dockerfile
+README.md
+setup.cfg
