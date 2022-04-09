@@ -1,0 +1,16 @@
+.git/
+.idea/
+.misc/
+.vagrant/
+.venv/
+
+app/results.json
+
+.cache
+.dockerignore
+.env
+.gitignore
+.pre-commit-config.yaml
+Dockerfile
+README.md
+Vagrantfile
