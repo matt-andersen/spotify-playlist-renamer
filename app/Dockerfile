@@ -5,7 +5,7 @@ RUN useradd appuser
 
 # Install dependencies:
 RUN pip install poetry
-COPY pyproject.toml poetry.lock ./
+COPY ../pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create false && poetry install --no-root --no-dev
 
 # Copy the app file(s):
