@@ -5,11 +5,16 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
+        args: [--allow-multiple-documents]
     -   id: check-added-large-files
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+    -   id: check-json
+    -   id: check-toml
+    -   id: pretty-format-json
+    -   id: detect-private-key
+-   repo: https://github.com/csachs/pyproject-flake8
+    rev: v0.0.1a2.post1
     hooks:
-    -   id: flake8
+      - id: pyproject-flake8
 -   repo: https://github.com/psf/black
     rev: 20.8b1
     hooks:
