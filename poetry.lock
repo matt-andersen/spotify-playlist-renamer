@@ -363,7 +363,7 @@ testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtuale
 name = "python-dotenv"
 version = "0.20.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -479,7 +479,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "6b2176080a59a928cb03ad6143688758d3a2dc7a2c397aae4f5fe824039a002c"
+content-hash = "3f208c34f44b775499b05c42365ddf0efd24c31e5b644484431674f580342822"
 
 [metadata.files]
 atomicwrites = [
