@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: spotify-playlist-renamer-cronjob
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: spotify-playlist-renamer
+            image: localhost:5001/spotify-playlist-renamer
+            imagePullPolicy: Always
+            envFrom:
+              - secretRef:
+                  name: spotify-playlist-renamer-secret-vars
+              - configMapRef:
+                  name: spotify-playlist-renamer-configmap
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              # readOnlyRootFilesystem: true
+              runAsUser: 1000
+              runAsGroup: 1000
+            volumeMounts:
+              - name: token
+                mountPath: /tmp/
+                readOnly: true
+          volumes:
+           - name: token
+             secret:
+               secretName: spotify-playlist-renamer-secret-file
+               items:
+                 - key: .cache
+                   path: .cache

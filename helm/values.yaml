@@ -1,0 +1,3 @@
+image:
+  repository: localhost:5001
+  name: spotify-playlist-renamer
