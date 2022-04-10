@@ -9,5 +9,6 @@ chmod -R 755 /usr/local/bin/
 # Create cluster with container registry enabled:
 curl -sLS https://kind.sigs.k8s.io/examples/kind-with-registry.sh | sudo sh
 mkdir /home/vagrant/.kube && kind get kubeconfig > /home/vagrant/.kube/config
+chmod 600 /home/vagrant/.kube/config
 
 echo "cd /home/vagrant/project" >> /home/vagrant/.bashrc

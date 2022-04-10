@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 2
-    vb.memory = "4096"
+    vb.memory = "8192"
   end
 
   config.vm.provision :docker
