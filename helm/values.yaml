@@ -1,4 +1,4 @@
 image:
-  repository: docker.pkg.github.com/matt-andersen
-  name: spotify-playlist-renamer/spotify-playlist-renamer
+  repository: ghcr.io/matt-andersen
+  name: spotify-playlist-renamer
   tag: latest

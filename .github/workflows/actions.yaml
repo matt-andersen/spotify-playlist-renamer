@@ -21,19 +21,10 @@ jobs:
       # Checks out the repository this file is in:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag spotify-playlist-renamer
-
-      # Builds and pushes container image to registry:
-      - name: Publish Docker Image to GPR
-        uses: machine-learning-apps/gpr-docker-publish@master
-        id: docker
-        with:
-          IMAGE_NAME: "spotify-playlist-renamer"
-          TAG: "latest"
-          DOCKERFILE_PATH: "Dockerfile"
-          BUILD_CONTEXT: "./"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GPR_TOKEN }}
+        run: |
+          docker build --file Dockerfile --tag ghcr.io/matt-andersen/spotify-playlist-renamer .
+          echo ${{ secrets.GPR_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+          docker push ghcr.io/matt-andersen/spotify-playlist-renamer
 
   deploy:
 
@@ -46,6 +37,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # TODO: Remove this.
     # Deploys the Helm chart to the cluster:
     steps:
     - uses: actions/checkout@v3
