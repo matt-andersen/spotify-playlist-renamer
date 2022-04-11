@@ -4,7 +4,7 @@ metadata:
   name: default-deny-all
   namespace: spotify-playlist-renamer
 spec:
-  podSelector: {}
+  podSelector: { }
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress

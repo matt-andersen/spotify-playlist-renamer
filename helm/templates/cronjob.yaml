@@ -11,31 +11,33 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: spotify-playlist-renamer
-            image: "{{ if eq .Values.environment "prod" }}{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}{{ else }}localhost:5001/spotify-playlist-renamer{{ end }}"
-            imagePullPolicy: Always
-            envFrom:
-              - secretRef:
-                  name: spotify-playlist-renamer-secret-vars
-              - configMapRef:
-                  name: spotify-playlist-renamer-configmap
-            securityContext:
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop:
-                  - ALL
-              runAsNonRoot: true
-              readOnlyRootFilesystem: true
-              runAsUser: 1000
-              runAsGroup: 1000
-            volumeMounts:
-              - name: token
-                mountPath: /tmp/
-                readOnly: true
+            - name: spotify-playlist-renamer
+              image: "{{ if eq .Values.environment "prod" }}{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}{{ else }}localhost:5001/spotify-playlist-renamer{{ end }}"
+              imagePullPolicy: Always
+              envFrom:
+                - secretRef:
+                    name: spotify-playlist-renamer-secret-vars
+                - configMapRef:
+                    name: spotify-playlist-renamer-configmap
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+                readOnlyRootFilesystem: true
+                runAsUser: 1000
+                runAsGroup: 1000
+              volumeMounts:
+                - name: token
+                  mountPath: /tmp/
+                  readOnly: true
           volumes:
-           - name: token
-             secret:
-               secretName: spotify-playlist-renamer-secret-token
-               items:
-                 - key: .cache
-                   path: .cache
+            - name: token
+              secret:
+                secretName: spotify-playlist-renamer-secret-token
+                items:
+                  - key: .cache
+                    path: .cache
+          imagePullSecrets:
+            - name: github-pull-secret
