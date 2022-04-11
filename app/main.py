@@ -32,6 +32,7 @@ def main():
     )
 
     if os.environ.get("ENVIRONMENT") == "prod":
+        print("PROD REACHED")
         spotify_oauth.cache_path = "/tmp/.cache"
 
     sp = spotipy.Spotify(auth_manager=spotify_oauth)
