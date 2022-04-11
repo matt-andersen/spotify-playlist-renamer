@@ -10,11 +10,6 @@ jobs:
 
   build:
 
-    permissions:
-      actions: read
-      contents: read
-      id-token: write
-
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +24,6 @@ jobs:
   deploy:
 
     needs: build
-
-    permissions:
-      actions: read
-      contents: read
-      id-token: write
 
     runs-on: ubuntu-latest
 
