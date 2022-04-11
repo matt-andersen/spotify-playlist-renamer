@@ -11,7 +11,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: spotify-playlist-renamer
-            image: localhost:5001/spotify-playlist-renamer
+            image: "{{ .Values.image.repository }}/{{ .Values.image.name }}"
             imagePullPolicy: Always
             envFrom:
               - secretRef:
@@ -24,7 +24,7 @@ spec:
                 drop:
                   - ALL
               runAsNonRoot: true
-              # readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: true
               runAsUser: 1000
               runAsGroup: 1000
             volumeMounts:

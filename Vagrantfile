@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/buster64"
   config.vagrant.plugins = ['vagrant-vbguest']
+  config.vm.boot_timeout = 600
 
   config.vm.synced_folder "./", "/home/vagrant/project"
 
