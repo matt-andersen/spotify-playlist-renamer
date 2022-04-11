@@ -1,3 +1,4 @@
 image:
-  repository: localhost:5001
-  name: spotify-playlist-renamer
+  repository: docker.pkg.github.com/matt-andersen
+  name: spotify-playlist-renamer/spotify-playlist-renamer
+  tag: latest
