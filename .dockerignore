@@ -3,14 +3,16 @@
 .misc/
 .vagrant/
 .venv/
+helm/
 
-app/results.json
-
-.cache
 .dockerignore
 .env
 .gitignore
 .pre-commit-config.yaml
+bootstrap.sh
 Dockerfile
 README.md
+results.json
 Vagrantfile
+
+.cache

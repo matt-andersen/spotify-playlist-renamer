@@ -9,7 +9,7 @@ RUN poetry config virtualenvs.in-project true && poetry install --no-root --no-d
 FROM python:3.10.4-slim-bullseye as runtime
 
 WORKDIR /app/
-RUN useradd appuser
+RUN groupadd --gid 1000 appuser && useradd --uid 1000 --gid 1000 appuser
 
 # Copy dependencies from previous stage:
 ENV PATH=/opt/.venv/bin:$PATH

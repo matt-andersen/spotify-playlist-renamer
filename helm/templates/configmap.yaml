@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spotify-playlist-renamer-configmap
+data:
+  REDIRECT_URI: http://127.0.0.1:9090
+  ENVIRONMENT: prod
