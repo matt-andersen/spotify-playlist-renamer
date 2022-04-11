@@ -19,4 +19,4 @@ COPY --from=build /tmp/.venv /opt/.venv
 COPY app/* ./
 
 USER appuser
-#CMD ["python3", "main.py"]
+CMD ['sh', '-c', 'echo "Test" && sleep 3600']
