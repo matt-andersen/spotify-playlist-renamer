@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: spotify-playlist-renamer-cronjob
+  namespace: spotify-playlist-renamer
 spec:
   schedule: "* * * * *"
   jobTemplate:
