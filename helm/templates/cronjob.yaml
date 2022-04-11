@@ -35,7 +35,7 @@ spec:
           volumes:
            - name: token
              secret:
-               secretName: spotify-playlist-renamer-secret-file
+               secretName: spotify-playlist-renamer-secret-token
                items:
                  - key: .cache
                    path: .cache
