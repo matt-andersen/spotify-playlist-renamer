@@ -46,6 +46,7 @@ jobs:
 
     # Deploys the Helm chart to the cluster:
     steps:
+    - uses: actions/checkout@v3
     - name: Deploy app to cluster
       uses: wahyd4/kubectl-helm-action@master
       env:
