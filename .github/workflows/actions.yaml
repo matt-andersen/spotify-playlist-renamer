@@ -1,22 +1,35 @@
 name: Build and deploy an app to Symbiosis
 
 on:
-  push:
+  pull_request:
     branches:
-      - $default-branch
-  workflow_dispatch:
-
+    - main
+  push:
 
 jobs:
+
   build:
+
     permissions:
       actions: read
       contents: read
       id-token: write
 
     runs-on: ubuntu-latest
-    steps:
-      # Checks out the repository this file is in
-      - uses: actions/checkout@v3
 
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    steps:
+      # Checks out the repository this file is in:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag spotify-playlist-renamer
+
+      - name: Publish Docker Image to GPR
+        uses: machine-learning-apps/gpr-docker-publish@master
+        id: docker
+        with:
+          IMAGE_NAME: "spotify-playlist-renamer"
+          TAG: "latest"
+          DOCKERFILE_PATH: "Dockerfile"
+          BUILD_CONTEXT: "./"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GPR_TOKEN }}
