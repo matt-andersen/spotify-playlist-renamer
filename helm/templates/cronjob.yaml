@@ -38,7 +38,7 @@ spec:
                 failureThreshold: 5
                 periodSeconds: 5
               volumeMounts:
-                - name: {{ .Values.cache.file }}
+                - name: token
                   mountPath: {{ .Values.cache.folder }}
                   readOnly: false
           volumes:
