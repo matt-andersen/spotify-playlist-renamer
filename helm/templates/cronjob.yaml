@@ -4,12 +4,14 @@ metadata:
   name: spotify-playlist-renamer-cronjob
   namespace: spotify-playlist-renamer
 spec:
+  concurrencyPolicy: Forbid
   schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           restartPolicy: OnFailure
+          automountServiceAccountToken: false
           containers:
             - name: spotify-playlist-renamer
               image: "{{ if eq .Values.environment "prod" }}{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}{{ else }}localhost:5001/spotify-playlist-renamer{{ end }}"
