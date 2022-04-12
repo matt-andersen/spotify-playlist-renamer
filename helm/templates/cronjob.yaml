@@ -30,16 +30,23 @@ spec:
                 readOnlyRootFilesystem: true
                 runAsUser: 1000
                 runAsGroup: 1000
+              startupProbe:
+                exec:
+                  command:
+                  - ls
+                  - {{ .Values.cache.folder }}.{{ .Values.cache.file }}
+                failureThreshold: 5
+                periodSeconds: 5
               volumeMounts:
-                - name: token
-                  mountPath: /tmp/
+                - name: {{ .Values.cache.file }}
+                  mountPath: {{ .Values.cache.folder }}
                   readOnly: false
           volumes:
             - name: token
               secret:
                 secretName: spotify-playlist-renamer-secret-token
                 items:
-                  - key: token.json
-                    path: token.json
+                  - key: {{ .Values.cache.file }}
+                    path: {{ .Values.cache.file }}
           imagePullSecrets:
             - name: github-pull-secret
