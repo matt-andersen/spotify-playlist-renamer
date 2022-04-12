@@ -6,4 +6,4 @@ metadata:
 data:
   REDIRECT_URI: http://127.0.0.1:9090
   ENVIRONMENT: prod
-  LOG_LEVEL: "10"
+  LOG_LEVEL: "20"
