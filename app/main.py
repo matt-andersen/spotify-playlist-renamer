@@ -13,7 +13,7 @@ PLAYLIST_ID = "5dZCTRD5inv8lWdVzCmVYb"
 PLAYLIST_NAME = "Dad Rock Essentials"
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(int(os.environ.get("LOG_LEVEL")))
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(
     logging.Formatter("[%(asctime)s] %(levelname)s: in %(filename)s: %(message)s")
@@ -32,7 +32,6 @@ def main():
     )
 
     if os.environ.get("ENVIRONMENT") == "prod":
-        print("PROD REACHED")
         spotify_oauth.cache_path = "/tmp/.cache"
 
     sp = spotipy.Spotify(auth_manager=spotify_oauth)
