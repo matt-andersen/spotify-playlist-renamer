@@ -37,7 +37,7 @@ spec:
               secret:
                 secretName: spotify-playlist-renamer-secret-token
                 items:
-                  - key: .cache
-                    path: .cache
+                  - key: token.json
+                    path: token.json
           imagePullSecrets:
             - name: github-pull-secret

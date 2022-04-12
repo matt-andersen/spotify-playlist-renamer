@@ -25,9 +25,9 @@ def main():
     logger.info("Running job")
 
     if os.environ.get("ENVIRONMENT") == "prod":
-        cache_dir = "/tmp/.cache"
+        cache_dir = "/tmp/token.json"
     else:
-        cache_dir = ".misc/.cache"
+        cache_dir = "token.json"
 
     spotify_oauth = SpotifyOAuth(
         scope=SCOPE,
