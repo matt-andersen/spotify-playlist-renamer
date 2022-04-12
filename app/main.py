@@ -24,15 +24,18 @@ logger.addHandler(handler)
 def main():
     logger.info("Running job")
 
+    if os.environ.get("ENVIRONMENT") == "prod":
+        cache_dir = "/tmp/.cache"
+    else:
+        cache_dir = ".misc/.cache"
+
     spotify_oauth = SpotifyOAuth(
         scope=SCOPE,
         client_id=os.environ.get("CLIENT_ID"),
         client_secret=os.environ.get("CLIENT_SECRET"),
         redirect_uri=os.environ.get("REDIRECT_URI"),
+        cache_path=cache_dir,
     )
-
-    if os.environ.get("ENVIRONMENT") == "prod":
-        spotify_oauth.cache_path = "/tmp/.cache"
 
     sp = spotipy.Spotify(auth_manager=spotify_oauth)
 

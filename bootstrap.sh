@@ -11,4 +11,7 @@ curl -sLS https://kind.sigs.k8s.io/examples/kind-with-registry.sh | sudo sh
 mkdir /home/vagrant/.kube && kind get kubeconfig > /home/vagrant/.kube/config
 chmod 600 /home/vagrant/.kube/config
 
+# Install Python:
+apt-get install python3-venv
+
 echo "cd /home/vagrant/project" >> /home/vagrant/.bashrc
