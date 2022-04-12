@@ -33,7 +33,7 @@ spec:
               volumeMounts:
                 - name: token
                   mountPath: /tmp/
-                  readOnly: true
+                  readOnly: false
           volumes:
             - name: token
               secret:
