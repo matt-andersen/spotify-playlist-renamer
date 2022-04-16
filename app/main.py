@@ -8,10 +8,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 load_dotenv()
 
-SCOPE = "playlist-modify-public playlist-modify-private"
-PLAYLIST_ID = "5dZCTRD5inv8lWdVzCmVYb"
-PLAYLIST_NAME = "Dad Rock Essentials"
-
+# Initialise logging:
 logger = logging.getLogger()
 logger.setLevel(int(os.environ.get("LOG_LEVEL")))
 handler = logging.StreamHandler(sys.stdout)
@@ -24,27 +21,28 @@ logger.addHandler(handler)
 def main():
     logger.info("Running job")
 
-    if os.environ.get("ENVIRONMENT") == "prod":
-        cache_dir = "/tmp/token.json"
-    else:
-        cache_dir = "token.json"
-
-    spotify_oauth = SpotifyOAuth(
-        scope=SCOPE,
-        client_id=os.environ.get("CLIENT_ID"),
-        client_secret=os.environ.get("CLIENT_SECRET"),
-        redirect_uri=os.environ.get("REDIRECT_URI"),
-        cache_path=cache_dir,
-        open_browser=False,
+    # Initialise connection to Spotify API:
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            scope="playlist-modify-public playlist-modify-private",
+            client_id=os.environ.get("CLIENT_ID"),
+            client_secret=os.environ.get("CLIENT_SECRET"),
+            redirect_uri=os.environ.get("REDIRECT_URI"),
+            cache_path=os.environ.get("CACHE_DIR"),
+            open_browser=False,
+        )
     )
 
-    sp = spotipy.Spotify(auth_manager=spotify_oauth)
+    # Retrieve the playlist name:
+    playlist_name = sp.playlist(os.environ.get("PLAYLIST_ID"))["name"]
 
-    playlist_name = sp.playlist(PLAYLIST_ID)["name"]
-
-    if playlist_name != PLAYLIST_NAME:
-        logger.info(f"Renaming playlist back to {PLAYLIST_NAME}")
-        sp.playlist_change_details(playlist_id=PLAYLIST_ID, name=PLAYLIST_NAME)
+    # Check playlist name, then change playlist name if appropriate:
+    if playlist_name != os.environ.get("PLAYLIST_NAME"):
+        logger.info(f"Renaming playlist back to {os.environ.get('PLAYLIST_NAME')}")
+        sp.playlist_change_details(
+            playlist_id=os.environ.get("PLAYLIST_ID"),
+            name=os.environ.get("PLAYLIST_NAME"),
+        )
     else:
         logger.info("No changes made")
 
