@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: spotify-playlist-renamer-pvc
+spec:
+  storageClassName: host
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Mi

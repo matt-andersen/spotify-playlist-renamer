@@ -2,7 +2,7 @@
 .github/
 .idea/
 .misc/
-.vagrant/
+vagrant/.vagrant/
 .venv/
 helm/
 
@@ -10,10 +10,10 @@ helm/
 .env
 .gitignore
 .pre-commit-config.yaml
-bootstrap.sh
+vagrant/bootstrap.sh
 Dockerfile
 README.md
 results.json
-Vagrantfile
+vagrant/Vagrantfile
 
 app/token.json
