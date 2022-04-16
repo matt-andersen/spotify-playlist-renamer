@@ -1,5 +1,5 @@
 .misc/
-.vagrant/
+vagrant/.vagrant/
 .venv/
 .idea/
 
