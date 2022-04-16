@@ -1,0 +1,46 @@
+name: Build and deploy an app to Symbiosis
+
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out the repository this file is in:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: |
+          docker build \
+            --file Dockerfile \
+            --tag ghcr.io/matt-andersen/spotify-playlist-renamer .
+          echo ${{ secrets.GPR_TOKEN }} | docker login ghcr.io --username USERNAME --password-stdin
+          docker push ghcr.io/matt-andersen/spotify-playlist-renamer
+
+  deploy:
+
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    # TODO: Remove this.
+    # Deploys the Helm chart to the cluster:
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy app to cluster
+      uses: wahyd4/kubectl-helm-action@v0.1.2
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: |
+          helm upgrade spotify-playlist-renamer helm \
+            --create-namespace \
+            --install \
+            --set environment=prod \
+            --namespace spotify-playlist-renamer

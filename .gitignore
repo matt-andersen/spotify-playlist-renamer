@@ -1,9 +1,10 @@
 .misc/
-.vagrant/
+vagrant/.vagrant/
 .venv/
 .idea/
 
 .cache
+app/token.json
 .env
 
 results.json

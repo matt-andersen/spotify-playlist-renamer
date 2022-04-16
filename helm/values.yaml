@@ -1,3 +1,8 @@
 image:
-  repository: localhost:5001
+  repository: ghcr.io/matt-andersen
   name: spotify-playlist-renamer
+  tag: latest
+
+cache:
+  file: token.json
+  folder: /tmp/

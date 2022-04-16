@@ -13,7 +13,7 @@ PLAYLIST_ID = "5dZCTRD5inv8lWdVzCmVYb"
 PLAYLIST_NAME = "Dad Rock Essentials"
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(int(os.environ.get("LOG_LEVEL")))
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(
     logging.Formatter("[%(asctime)s] %(levelname)s: in %(filename)s: %(message)s")
@@ -24,15 +24,19 @@ logger.addHandler(handler)
 def main():
     logger.info("Running job")
 
+    if os.environ.get("ENVIRONMENT") == "prod":
+        cache_dir = "/tmp/token.json"
+    else:
+        cache_dir = "token.json"
+
     spotify_oauth = SpotifyOAuth(
         scope=SCOPE,
         client_id=os.environ.get("CLIENT_ID"),
         client_secret=os.environ.get("CLIENT_SECRET"),
         redirect_uri=os.environ.get("REDIRECT_URI"),
+        cache_path=cache_dir,
+        open_browser=False,
     )
-
-    if os.environ.get("ENVIRONMENT") == "prod":
-        spotify_oauth.cache_path = "/tmp/.cache"
 
     sp = spotipy.Spotify(auth_manager=spotify_oauth)
 

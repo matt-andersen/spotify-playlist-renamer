@@ -1,19 +1,29 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny-egress
+  name: deny-all
   namespace: spotify-playlist-renamer
 spec:
-  podSelector: {}
+  podSelector: { }
   policyTypes:
-  - Egress
+    - Ingress
+#    - Egress
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny-ingress
+  name: allow-certain-egress
   namespace: spotify-playlist-renamer
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      role: db
   policyTypes:
-  - Ingress
+    - Egress
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/24
+      ports:
+        - protocol: TCP
+          port: 443
