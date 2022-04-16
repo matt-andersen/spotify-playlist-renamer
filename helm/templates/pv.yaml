@@ -10,4 +10,4 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /mnt/data
-    type: Directory
+    type: DirectoryOrCreate
