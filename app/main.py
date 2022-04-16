@@ -35,6 +35,7 @@ def main():
         client_secret=os.environ.get("CLIENT_SECRET"),
         redirect_uri=os.environ.get("REDIRECT_URI"),
         cache_path=cache_dir,
+        open_browser=False,
     )
 
     sp = spotipy.Spotify(auth_manager=spotify_oauth)
