@@ -4,6 +4,9 @@ metadata:
   name: spotify-playlist-renamer-configmap
   namespace: spotify-playlist-renamer
 data:
-  REDIRECT_URI: http://127.0.0.1:9090
   ENVIRONMENT: prod
+  REDIRECT_URI: http://127.0.0.1:9090
+  PLAYLIST_ID: 5dZCTRD5inv8lWdVzCmVYb
+  PLAYLIST_NAME: Dad Rock Essentials
+  CACHE_DIR: "/tmp/token.json"
   LOG_LEVEL: "20"
