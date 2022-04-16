@@ -17,8 +17,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: |
-          docker build --file Dockerfile --tag ghcr.io/matt-andersen/spotify-playlist-renamer .
-          echo ${{ secrets.GPR_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+          docker build \
+            --file Dockerfile \
+            --tag ghcr.io/matt-andersen/spotify-playlist-renamer .
+          echo ${{ secrets.GPR_TOKEN }} | docker login ghcr.io --username USERNAME --password-stdin
           docker push ghcr.io/matt-andersen/spotify-playlist-renamer
 
   deploy:
@@ -37,4 +39,8 @@ jobs:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
       with:
         args: |
-          helm upgrade --set environment=prod --install --namespace spotify-playlist-renamer spotify-playlist-renamer helm
+          helm upgrade spotify-playlist-renamer helm \
+            --create-namespace \
+            --install \
+            --set environment=prod \
+            --namespace spotify-playlist-renamer
